@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://stage_gameplay.tscn" type="PackedScene" id=1]
+[ext_resource path="res://navdi/Node Scripts/NavdiBanker.gd" type="Script" id=2]
+[ext_resource path="res://navdi/Node Scripts/NavdiSettings.gd" type="Script" id=3]
+[ext_resource path="res://navdi/Resources/navdimonster10.png" type="Texture" id=4]
+
+[node name="XXI" type="Node2D"]
+
+[node name="bank" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="settings" type="Node" parent="."]
+script = ExtResource( 3 )
+bg_color = Color( 1, 1, 1, 1 )
+project_month = "May"
+project_day = "15"
+project_name = "den"
+project_icon = ExtResource( 4 )
+
+[node name="arcade" type="Node2D" parent="."]
+
+[node name="stage" parent="arcade" instance=ExtResource( 1 )]

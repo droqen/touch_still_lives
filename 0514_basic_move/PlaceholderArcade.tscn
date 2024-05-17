@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ArcadeScreen.gd" type="Script" id=1]
+[ext_resource path="res://GridCursor.gd" type="Script" id=2]
+[ext_resource path="res://media/abstract-sprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://worldgrid.gd" type="Script" id=4]
+
+[node name="ArcadeScreen" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 50, 50 )
+
+[node name="Cursor" type="Position2D" parent="."]
+position = Vector2( 23.75, 41 )
+
+[node name="GridCursor" type="Position2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="corner1" type="Node2D" parent="GridCursor"]
+
+[node name="Sprite" parent="GridCursor/corner1" instance=ExtResource( 3 )]
+position = Vector2( -2, -2 )
+frame = 10
+
+[node name="corner2" type="Node2D" parent="GridCursor"]
+rotation = 1.5708
+
+[node name="Sprite" parent="GridCursor/corner2" instance=ExtResource( 3 )]
+position = Vector2( -2, -2 )
+frame = 10
+
+[node name="corner3" type="Node2D" parent="GridCursor"]
+rotation = 3.14159
+
+[node name="Sprite" parent="GridCursor/corner3" instance=ExtResource( 3 )]
+position = Vector2( -2, -2 )
+frame = 10
+
+[node name="corner4" type="Node2D" parent="GridCursor"]
+rotation = 4.71239
+
+[node name="Sprite" parent="GridCursor/corner4" instance=ExtResource( 3 )]
+position = Vector2( -2, -2 )
+frame = 10
+
+[node name="worldgrid" type="Node2D" parent="."]
+script = ExtResource( 4 )
