@@ -4,15 +4,17 @@ Cat = (function () {
 	const statusNotice = document.getElementById('status-notice');
 
 	let initializing = true;
+	let loading = false;
 	let statusMode = '';
 
 	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
+		if (statusMode === mode) {
 			return;
 		}
 		if (mode === 'hidden') {
-			statusOverlay.remove();
+			statusOverlay.style.visibility = 'hidden';
 			initializing = false;
+			loading = false;
 			return;
 		}
 		statusOverlay.style.visibility = 'visible';
@@ -38,7 +40,50 @@ Cat = (function () {
 		setStatusNotice(msg);
 		setStatusMode('notice');
 		initializing = false;
+		loading = false;
 	}
+
+	var try_start_game = function(game_path, game_filesize = 0) {
+		if (loading) {
+			return false;
+		} else {
+			console.log("set status mode progress");
+			setStatusMode('progress');
+			engine.startGame({
+				'args': [],
+				'mainPack': game_path,
+				'fileSizes':{game_path:game_filesize,"engine/godot.wasm":46560934},
+				'onProgress': function (current, total) {
+					if (current > 0 && total > 0) {
+						statusProgress.value = current;
+						statusProgress.max = total;
+					} else {
+						statusProgress.removeAttribute('value');
+						statusProgress.removeAttribute('max');
+					}
+				},
+			}).then(() => {
+				console.log("set status mode hidden");
+				setStatusMode('hidden');
+				let event = new Event('canvasGameLoaded', {});
+				window.dispatchEvent(event);
+			}, displayFailureNotice);
+			return true;
+		}
+	}
+	const GODOT_CONFIG = {
+		"args":[],
+		"canvasResizePolicy":0, // default 2, but in my case - i want to handle it manually. see 'resize' event below.
+		"ensureCrossOriginIsolationHeaders":true,
+		"executable":"engine/godot",
+		"mainPack":"game/default.zip",
+		"experimentalVK":false,
+		// "fileSizes":{"game/default.zip":36960,"engine/godot.wasm":46560934},
+		"focusCanvas":true,
+		"unloadAfterInit":false,
+		"gdextensionLibs":[]};
+	const GODOT_THREADS_ENABLED = false;
+	const engine = new Engine(GODOT_CONFIG);
 
 	const missing = Engine.getMissingFeatures({
 		threads: GODOT_THREADS_ENABLED,
@@ -68,23 +113,10 @@ Cat = (function () {
 			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
 			displayFailureNotice(missingMsg + missing.join('\n'));
 		}
+	} else if (try_start_game('game/default.zip', 27443)) {
+		// good!
 	} else {
-		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-			let event = new Event('canvasGameLoaded', {});
-			window.dispatchEvent(event);
-		}, displayFailureNotice);
+		console.log("FAILED STARTING MY FIRST GAME >:( big problem");
 	}
 
 	var set_game_size = function(w,h) {
@@ -96,14 +128,15 @@ Cat = (function () {
 	}
 
 	return {
+		try_start_game : try_start_game,
 		set_game_size : set_game_size,
 	}
 }());
 
 if (typeof window !== 'undefined') {
 	window['Cat'] = Cat;
-	console.log("it must be done. is Cat in window?")
-	console.log(window['Cat'])
+	// console.log("it must be done. is Cat in window?")
+	// console.log(window['Cat'])
 } else {
 	console.log("window not found, could not put Cat in window :(");
 }

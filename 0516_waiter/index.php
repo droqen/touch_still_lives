@@ -113,22 +113,7 @@ body {
 		</div>
 
 		<script src="engine/godot.js"></script>
-		<script>
-			const GODOT_CONFIG = {
-				"args":[],
-				"canvasResizePolicy":0, // default 2, but in my case - i want to handle it manually. see 'resize' event below.
-				"ensureCrossOriginIsolationHeaders":true,
-				"executable":"engine/godot",
-				"mainPack":"game/default.zip",
-				"experimentalVK":false,
-				"fileSizes":{"game/default.zip":0,"engine/godot.wasm":46553979},
-				"focusCanvas":true,
-				"unloadAfterInit":false,
-				"gdextensionLibs":[]};
-
-			const GODOT_THREADS_ENABLED = false;
-			const engine = new Engine(GODOT_CONFIG);
-		</script>
+		<script src="engine/cat.js" defer></script>
 		<script>
 			const canvasEl = document.getElementById("canvas")
 			const canvasParent = canvasEl.parentElement;
@@ -171,32 +156,11 @@ body {
 				canvasEl.height = sh;
 			}
 		</script>
-		<script src="engine/cat.js"></script>
 		<script>
 			setTimeout(()=>{
-				// load('game/default2.zip')
-				// setStatusMode('progress');
-				// engine.startGame({
-				// 	'onProgress': function (current, total) {
-				// 		if (current > 0 && total > 0) {
-				// 			statusProgress.value = current;
-				// 			statusProgress.max = total;
-				// 		} else {
-				// 			statusProgress.removeAttribute('value');
-				// 			statusProgress.removeAttribute('max');
-				// 		}
-				// 	},
-				// }).then(() => {
-				// 	setStatusMode('hidden');
-				// 	let event = new Event('canvasGameLoaded', {});
-				// 	window.dispatchEvent(event);
-				// }, displayFailureNotice);
-
-				var promise = engine.startGame({"args":[],"mainPack":"game/default2.zip","onProgress":(cur,total)=>{}}); // yep, this works. 'onProgress' could show a load screen.
-				promise.then(
-					()=>{console.log("timed out game:replace succeeded :)"); window.dispatchEvent(new Event("canvasGameLoaded", {})); /*engineGameLoaded=(pack==NONE_PACK); gameProperties={};*/},
-					(err)=>{console.log("timed out game:replace FAILED! - err "+(err.message||err));}
-				);
+				if (!Cat.try_start_game('game/default2.zip', <?php echo filesize('game/default2.zip'); ?>)) {
+					console.log("failed Cat.try_start_game");
+				}
 			}, 3000);
 		</script>
 	</body>
