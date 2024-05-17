@@ -157,11 +157,11 @@ body {
 			}
 		</script>
 		<script>
-			setTimeout(()=>{
-				if (!Cat.try_start_game('game/default2.zip', <?php echo filesize('game/default2.zip'); ?>)) {
-					console.log("failed Cat.try_start_game");
-				}
-			}, 3000);
+			// setTimeout(()=>{
+			// 	if (!Cat.try_start_game('game/default2.zip', <?php echo filesize('game/default2.zip'); ?>)) {
+			// 		console.log("failed Cat.try_start_game");
+			// 	}
+			// }, 3000);
 		</script>
 	</body>
 </html>

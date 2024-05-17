@@ -76,9 +76,8 @@ Cat = (function () {
 		"canvasResizePolicy":0, // default 2, but in my case - i want to handle it manually. see 'resize' event below.
 		"ensureCrossOriginIsolationHeaders":true,
 		"executable":"engine/godot",
-		"mainPack":"game/default.zip",
+		"mainPack":"game/void.zip",
 		"experimentalVK":false,
-		// "fileSizes":{"game/default.zip":36960,"engine/godot.wasm":46560934},
 		"focusCanvas":true,
 		"unloadAfterInit":false,
 		"gdextensionLibs":[]};
@@ -113,7 +112,7 @@ Cat = (function () {
 			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
 			displayFailureNotice(missingMsg + missing.join('\n'));
 		}
-	} else if (try_start_game('game/default.zip', 27443)) {
+	} else if (try_start_game('game/void.zip', 8350)) {
 		// good!
 	} else {
 		console.log("FAILED STARTING MY FIRST GAME >:( big problem");
