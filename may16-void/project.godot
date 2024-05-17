@@ -19,7 +19,7 @@ boot_splash/fullsize=false
 
 [display]
 
-window/size/viewport_width=200
+window/size/viewport_width=180
 window/size/viewport_height=200
 window/stretch/mode="viewport"
 window/stretch/aspect="ignore"

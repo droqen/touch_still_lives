@@ -4,31 +4,34 @@ extends Node2D
 
 var animi : int = 0
 var animt : int = 0
+var locked_until_release : bool = false
 
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		target = get_global_mouse_position()
+		if not locked_until_release:
+			target = get_global_mouse_position()
+	else:
+		locked_until_release = false
 	var totarget = target - position
-	
-	if target.x < 0 or target.x >= 200:
-		totarget.x = posmod(totarget.x+100, 200)-100
-	if target.y < 0 or target.y >= 200:
-		totarget.y = posmod(totarget.y+100, 200)-100
 	
 	position += totarget.limit_length()
 	
-	if position.x < -4:
-		position.x += 208
-		target.x += 208
-	if position.y < -4:
-		position.y += 208
-		target.y += 208
-	if position.x > 204:
-		position.x -= 208
-		target.x -= 208
-	if position.y > 204:
-		position.y -= 208
-		target.y -= 208
+	if position.x < -3:
+		position.x += 185
+		target.x += 180
+		locked_until_release = true
+	if position.y < -3:
+		position.y += 205
+		target.y += 200
+		locked_until_release = true
+	if position.x >= 183:
+		position.x -= 185
+		target.x -= 180
+		locked_until_release = true
+	if position.y >= 203:
+		position.y -= 205
+		target.y -= 200
+		locked_until_release = true
 	
 	if animt > 0:
 		animt -= 1

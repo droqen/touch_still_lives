@@ -9,3 +9,4 @@ func _physics_process(delta: float) -> void:
 		noise.noise.offset.y = randi_range(-10,10)*200
 		noise.noise.frequency = randf_range(0.1,0.2)
 		chop = 13
+		
