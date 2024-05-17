@@ -40,7 +40,7 @@ body {
 }
 
 #status {
-	background-color: #242424;
+	background-color: black;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
