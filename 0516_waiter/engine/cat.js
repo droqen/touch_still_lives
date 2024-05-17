@@ -112,7 +112,7 @@ Cat = (function () {
 			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
 			displayFailureNotice(missingMsg + missing.join('\n'));
 		}
-	} else if (try_start_game('game/void.zip', 8350)) {
+	} else if (try_start_game('game/void.zip', 8388)) {
 		// good!
 	} else {
 		console.log("FAILED STARTING MY FIRST GAME >:( big problem");
