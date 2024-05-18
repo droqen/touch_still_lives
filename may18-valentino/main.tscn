@@ -1,0 +1,233 @@
+[gd_scene load_steps=16 format=4 uid="uid://uuvdbv6vd6wf"]
+
+[ext_resource type="Script" path="res://navdi4/main/navdimain.gd" id="1_2ptb6"]
+[ext_resource type="Texture2D" uid="uid://buugjves5uefo" path="res://media/ravine100.png" id="2_hblke"]
+[ext_resource type="TileSet" uid="uid://dljs4wf8dnd44" path="res://media/ravine_tiles.tres" id="3_587d1"]
+[ext_resource type="Texture2D" uid="uid://kffxxghgkxg3" path="res://media/ravine.png" id="4_18f5n"]
+[ext_resource type="Script" path="res://player.gd" id="4_ldh76"]
+[ext_resource type="Script" path="res://navdi4/maze/maze.gd" id="4_qy0lr"]
+[ext_resource type="Script" path="res://navdi4/maze/mazebake.gd" id="5_48mms"]
+[ext_resource type="Script" path="res://spritesMgr.gd" id="6_lp24h"]
+[ext_resource type="Script" path="res://enemy.gd" id="6_mc7ns"]
+[ext_resource type="Script" path="res://navdi4/maze/mazeguide.gd" id="6_vqc8i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6wskn"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_niesy"]
+size = Vector2(6, 6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t025r"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whn67"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrccx"]
+size = Vector2(4, 4)
+
+[node name="NavdiMain" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_2ptb6")
+game_name = "ravine"
+view_scale = Vector2i(3, 3)
+icon = ExtResource("2_hblke")
+bg_colour = Color(0.462745, 0.592157, 0.141176, 1)
+time_year = 2024
+time_month = "May"
+time_day = 18
+
+[node name="maze" type="TileMapLayer" parent="."]
+z_index = -1
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA4AAAABAAAAAAAAAA8AAAAAAAAAAAAAABAAAAAAAAAAAAAAABEAAAAAAAAAAAAAABIAAAAAAAAAAAAAABMAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAAAAAAAAAABAAoAAAABAAAAAAABAAsAAAABAAAAAAABAAwAAAABAAAAAAABAA0AAAACAAAAAAABAA4AAAACAAAAAAABAA8AAAABAAAAAAABABAAAAAAAAAAAAABABEAAAAAAAAAAAABABIAAAAAAAAAAAABABMAAAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAABAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAACAAgAAAABAAAAAAACAAkAAAABAAAAAAACAAoAAAACAAAAAAACAAsAAAACAAAAAAACAAwAAAACAAAAAAACAA8AAAACAAAAAAACABAAAAABAAAAAAACABEAAAABAAAAAAACABIAAAABAAAAAAADAAAAAAABAAAAAAADAAEAAAABAAAAAAADAAIAAAABAAAAAAADAAMAAAABAAAAAAADAAQAAAABAAAAAAADAAUAAAACAAAAAAADAAYAAAABAAAAAAADAAcAAAABAAAAAAADAAgAAAACAAAAAAADAAkAAAACAAAAAAADABAAAAACAAAAAAADABEAAAACAAAAAAADABIAAAACAAAAAAAEAAAAAAACAAAAAAAEAAEAAAACAAAAAAAEAAIAAAACAAAAAAAEAAMAAAACAAAAAAAEAAQAAAACAAAAAAAEAAYAAAACAAAAAAAEAAcAAAACAAAAAAANAAMAAAACAAAAABANABAAAAACAAAAABANABEAAAACAAAAABANABIAAAACAAAAABANABMAAAACAAAAABAOAAIAAAACAAAAABAOAAMAAAABAAAAABAOAAcAAAACAAAAABAOAAgAAAACAAAAABAOAAwAAAACAAAAABAOAA0AAAACAAAAABAOAA4AAAACAAAAABAOAA8AAAACAAAAABAOABAAAAABAAAAABAOABEAAAABAAAAABAOABIAAAABAAAAABAOABMAAAABAAAAABAPAAAAAAACAAAAABAPAAEAAAACAAAAABAPAAIAAAABAAAAABAPAAMAAAAAAAAAAAAPAAQAAAACAAAAABAPAAUAAAACAAAAABAPAAYAAAACAAAAABAPAAcAAAABAAAAABAPAAgAAAABAAAAABAPAAkAAAACAAAAABAPAAoAAAACAAAAABAPAAsAAAACAAAAABAPAAwAAAABAAAAABAPAA0AAAABAAAAABAPAA4AAAABAAAAABAPAA8AAAABAAAAABAPABAAAAAAAAAAAAAPABEAAAAAAAAAAAAPABIAAAAAAAAAAAAPABMAAAAAAAAAAAAQAAAAAAABAAAAABAQAAEAAAABAAAAABAQAAIAAAAAAAAAAAAQAAMAAAAAAAAAAAAQAAQAAAABAAAAABAQAAUAAAABAAAAABAQAAYAAAABAAAAABAQAAcAAAAAAAAAAAAQAAgAAAAAAAAAAAAQAAkAAAABAAAAABAQAAoAAAABAAAAABAQAAsAAAABAAAAABAQAAwAAAAAAAAAAAAQAA0AAAAAAAAAAAAQAA4AAAAAAAAAAAAQAA8AAAAAAAAAAAAQABAAAAAAAAAAAAAQABEAAAAAAAAAAAAQABIAAAAAAAAAAAAQABMAAAAAAAAAAAARAAAAAAAAAAAAAAARAAEAAAAAAAAAAAARAAIAAAAAAAAAAAARAAMAAAAAAAAAAAARAAQAAAAAAAAAAAARAAUAAAAAAAAAAAARAAYAAAAAAAAAAAARAAcAAAAAAAAAAAARAAgAAAAAAAAAAAARAAkAAAAAAAAAAAARAAoAAAAAAAAAAAARAAsAAAAAAAAAAAARAAwAAAAAAAAAAAARAA0AAAAAAAAAAAARAA4AAAAAAAAAAAARAA8AAAAAAAAAAAARABAAAAAAAAAAAAARABEAAAAAAAAAAAARABIAAAAAAAAAAAARABMAAAAAAAAAAAADABMAAAACAAAAAAACABMAAAABAAAAAAAEABIAAAAGAAAAAAAEABMAAAAGAAAAAAAFABMAAAAGAAAAAAANAA8AAAAGAAAAAAACAA4AAAAGAAAAAAADAA4AAAAGAAAAAAADAA8AAAAGAAAAAAAEAA8AAAAGAAAAAAAEAA0AAAAGAAAAAAADAAwAAAAGAAAAAAADAAsAAAAGAAAAAAADAA0AAAAGAAAAAAACAA0AAAAGAAAAAAAEAAgAAAAGAAAAAAAEAAUAAAAGAAAAAAANAAIAAAAGAAAAAAANAAEAAAAGAAAAAAAOAAEAAAAGAAAAAAAOAAAAAAAGAAAAAAANAAAAAAAGAAAAAAAMAAAAAAAGAAAAAAAOAAQAAAAGAAAAAAANAAQAAAAGAAAAAAAOAAUAAAAGAAAAAAAOAAYAAAAGAAAAAAAOAAkAAAAGAAAAAAAOAAoAAAAGAAAAAAANAAoAAAAGAAAAAAAOAAsAAAAGAAAAAAANAA4AAAAGAAAAAAANAAwAAAAGAAAAAAAMABIAAAAGAAAAAAAMABMAAAAGAAAAAAAGAAAAAAAGAAAAAAAGAAEAAAAGAAAAAAAFAAEAAAAGAAAAAAAFAAIAAAAGAAAAAAAFAAMAAAAGAAAAAAAGAAIAAAAGAAAAAAAFAAAAAAAGAAAAAAAIAAAAAAAGAAAAAAAJAAAAAAAEAAAAAFAJAAEAAAAEAAAAAFAJAAIAAAAEAAAAAFAJAAMAAAAEAAAAAFAIAAUAAAAEAAAAAFAIAAYAAAAEAAAAAFAIAAcAAAAEAAAAAFAKAAkAAAAEAAAAAFAKAAoAAAAEAAAAAFAHAAwAAAAEAAAAAFAHAA0AAAAEAAAAAFAHAA4AAAAEAAAAAFAHAA8AAAAEAAAAAFAHABAAAAAEAAAAAFAIABEAAAADAAAAAFAIABIAAAAEAAAAAFAIABMAAAAEAAAAAFAHABEAAAADAAAAAGAHAAsAAAADAAAAAAAKAAsAAAADAAAAADAKAAgAAAADAAAAAFAIAAgAAAADAAAAAGAIAAQAAAADAAAAAAAJAAQAAAADAAAAADAJAAgAAAAEAAAAADAJAAsAAAAEAAAAADAIAAsAAAAEAAAAADAHABIAAAAHAAAAAAAJAA0AAAAHAAAAAAAJAAwAAAAGAAAAAAAIAA0AAAAGAAAAAAAJAA4AAAAGAAAAAAAIAAoAAAAHAAAAAAAJAAoAAAAGAAAAAAAJAAkAAAAGAAAAAAAIAAkAAAAGAAAAAAAHAAoAAAAGAAAAAAAJAAYAAAAHAAAAAAAKAAcAAAAHAAAAAAAJAAcAAAAGAAAAAAAJAAUAAAAGAAAAAAAKAAYAAAAGAAAAAAALAAcAAAAGAAAAAAAGAAYAAAAHAAAAAAAIAAMAAAAHAAAAAAAIAA8AAAAHAAAAAAAIABAAAAAHAAAAAAAGABAAAAAGAAAAAAAGAA8AAAAGAAAAAAAFABAAAAAGAAAAAAAGAAcAAAAGAAAAAAAHAAYAAAAGAAAAAAAGAAUAAAAGAAAAAAAMAAQAAAAFAAAAAAAMAAMAAAAFAAAAAAAMAAIAAAAFAAAAAAAMAAEAAAAFAAAAAAALAAEAAAAFAAAAAAALAAAAAAAFAAAAAAAKAAAAAAAFAAAAAAAKAAEAAAAFAAAAAAAKAAIAAAAFAAAAAAAKAAMAAAAFAAAAAAAKAAQAAAAFAAAAAAAKAAUAAAAFAAAAAAALAAUAAAAFAAAAAAALAAQAAAAFAAAAAAALAAMAAAAFAAAAAAALAAIAAAAFAAAAAAALAAYAAAAFAAAAAAAMAAYAAAAFAAAAAAAMAAUAAAAFAAAAAAANAAUAAAAFAAAAAAANAAYAAAAFAAAAAAANAAcAAAAFAAAAAAAMAAcAAAAFAAAAAAAMAAgAAAAFAAAAAAALAAgAAAAFAAAAAAALAAkAAAAFAAAAAAALAAoAAAAFAAAAAAALAAsAAAAFAAAAAAALAAwAAAAFAAAAAAAKAAwAAAAFAAAAAAAKAA0AAAAFAAAAAAAKAA4AAAAFAAAAAAAKAA8AAAAFAAAAAAAJAA8AAAAFAAAAAAAJABAAAAAFAAAAAAAJABEAAAAFAAAAAAAJABIAAAAFAAAAAAAJABMAAAAFAAAAAAAKABMAAAAFAAAAAAAKABIAAAAFAAAAAAAKABEAAAAFAAAAAAAKABAAAAAFAAAAAAALABAAAAAFAAAAAAALAA8AAAAFAAAAAAALAA4AAAAFAAAAAAALAA0AAAAFAAAAAAAMAA0AAAAFAAAAAAAMAAwAAAAFAAAAAAAMAAsAAAAFAAAAAAAMAAoAAAAFAAAAAAAMAAkAAAAFAAAAAAANAAkAAAAFAAAAAAANAAgAAAAFAAAAAAANAAsAAAAFAAAAAAAMAA4AAAAFAAAAAAAMAA8AAAAFAAAAAAAMABAAAAAFAAAAAAAMABEAAAAFAAAAAAALABEAAAAFAAAAAAALABIAAAAFAAAAAAALABMAAAAFAAAAAAANAA0AAAAFAAAAAAAGAAQAAAAFAAAAAAAGAAMAAAAFAAAAAAAHAAMAAAAFAAAAAAAHAAIAAAAFAAAAAAAHAAEAAAAFAAAAAAAHAAAAAAAFAAAAAAAIAAEAAAAFAAAAAAAIAAIAAAAFAAAAAAAHAAQAAAAFAAAAAAAHAAUAAAAFAAAAAAAFAAQAAAAFAAAAAAAFAAUAAAAFAAAAAAAFAAYAAAAFAAAAAAAFAAcAAAAFAAAAAAAFAAgAAAAFAAAAAAAFAAkAAAAFAAAAAAAEAAkAAAAFAAAAAAAEAAoAAAAFAAAAAAADAAoAAAAFAAAAAAAEAAsAAAAFAAAAAAAEAAwAAAAFAAAAAAAFAAwAAAAFAAAAAAAFAAsAAAAFAAAAAAAFAAoAAAAFAAAAAAAGAAoAAAAFAAAAAAAGAAkAAAAFAAAAAAAGAAgAAAAFAAAAAAAHAAgAAAAFAAAAAAAHAAcAAAAFAAAAAAAHAAkAAAAFAAAAAAAGAAsAAAAFAAAAAAAGAAwAAAAFAAAAAAAGAA0AAAAFAAAAAAAFAA0AAAAFAAAAAAAFAA4AAAAFAAAAAAAEAA4AAAAFAAAAAAAFAA8AAAAFAAAAAAAGAA4AAAAFAAAAAAAIAAwAAAAFAAAAAAAEABAAAAAFAAAAAAAEABEAAAAFAAAAAAAFABEAAAAFAAAAAAAFABIAAAAFAAAAAAAGABEAAAAFAAAAAAAGABIAAAAFAAAAAAAGABMAAAAFAAAAAAAHABMAAAAFAAAAAAAIAA4AAAAFAAAAAAA=")
+tile_set = ExtResource("3_587d1")
+navigation_enabled = false
+script = ExtResource("4_qy0lr")
+
+[node name="MazeBake" type="Node" parent="maze"]
+script = ExtResource("5_48mms")
+
+[node name="sprites" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("6_lp24h")
+
+[node name="player" type="CharacterBody2D" parent="sprites"]
+position = Vector2(95, 5)
+collision_layer = 4
+script = ExtResource("4_ldh76")
+
+[node name="spr" type="Sprite2D" parent="sprites/player"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 30
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/player"]
+shape = SubResource("RectangleShape2D_6wskn")
+
+[node name="MazeGuide" type="Node" parent="sprites/player" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/player/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_niesy")
+
+[node name="fight_target_finder" type="Area2D" parent="sprites/player"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/player/fight_target_finder"]
+shape = SubResource("CircleShape2D_t025r")
+
+[node name="enemy" type="CharacterBody2D" parent="sprites" node_paths=PackedStringArray("target")]
+position = Vector2(53, 104)
+collision_layer = 20
+script = ExtResource("6_mc7ns")
+target = NodePath("../player")
+
+[node name="spr" type="Sprite2D" parent="sprites/enemy"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/enemy"]
+shape = SubResource("RectangleShape2D_whn67")
+
+[node name="MazeGuide" type="Node" parent="sprites/enemy" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/enemy/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_wrccx")
+
+[node name="enemy2" type="CharacterBody2D" parent="sprites" node_paths=PackedStringArray("target")]
+position = Vector2(133, 58)
+collision_layer = 20
+script = ExtResource("6_mc7ns")
+target = NodePath("../player")
+
+[node name="spr" type="Sprite2D" parent="sprites/enemy2"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/enemy2"]
+shape = SubResource("RectangleShape2D_whn67")
+
+[node name="MazeGuide" type="Node" parent="sprites/enemy2" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/enemy2/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_wrccx")
+
+[node name="enemy3" type="CharacterBody2D" parent="sprites" node_paths=PackedStringArray("target")]
+position = Vector2(110, 168)
+collision_layer = 20
+script = ExtResource("6_mc7ns")
+target = NodePath("../player")
+
+[node name="spr" type="Sprite2D" parent="sprites/enemy3"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/enemy3"]
+shape = SubResource("RectangleShape2D_whn67")
+
+[node name="MazeGuide" type="Node" parent="sprites/enemy3" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/enemy3/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_wrccx")
+
+[node name="enemy4" type="CharacterBody2D" parent="sprites" node_paths=PackedStringArray("target")]
+position = Vector2(117, 166)
+collision_layer = 20
+script = ExtResource("6_mc7ns")
+target = NodePath("../player")
+
+[node name="spr" type="Sprite2D" parent="sprites/enemy4"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/enemy4"]
+shape = SubResource("RectangleShape2D_whn67")
+
+[node name="MazeGuide" type="Node" parent="sprites/enemy4" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/enemy4/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_wrccx")
+
+[node name="enemy5" type="CharacterBody2D" parent="sprites" node_paths=PackedStringArray("target")]
+position = Vector2(116, 173)
+collision_layer = 20
+script = ExtResource("6_mc7ns")
+target = NodePath("../player")
+
+[node name="spr" type="Sprite2D" parent="sprites/enemy5"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/enemy5"]
+shape = SubResource("RectangleShape2D_whn67")
+
+[node name="MazeGuide" type="Node" parent="sprites/enemy5" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/enemy5/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_wrccx")
+
+[node name="enemy6" type="CharacterBody2D" parent="sprites" node_paths=PackedStringArray("target")]
+position = Vector2(107, 160)
+collision_layer = 20
+script = ExtResource("6_mc7ns")
+target = NodePath("../player")
+
+[node name="spr" type="Sprite2D" parent="sprites/enemy6"]
+position = Vector2(0, -2)
+texture = ExtResource("4_18f5n")
+hframes = 10
+vframes = 10
+frame = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sprites/enemy6"]
+shape = SubResource("RectangleShape2D_whn67")
+
+[node name="MazeGuide" type="Node" parent="sprites/enemy6" node_paths=PackedStringArray("maze_bake", "shapecast")]
+script = ExtResource("6_vqc8i")
+maze_bake = NodePath("../../../maze/MazeBake")
+shapecast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="sprites/enemy6/MazeGuide"]
+visible = false
+shape = SubResource("RectangleShape2D_wrccx")
