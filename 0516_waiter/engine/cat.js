@@ -88,34 +88,40 @@ Cat = (function () {
 		threads: GODOT_THREADS_ENABLED,
 	});
 
-	if (missing.length !== 0) {
-		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
-			// There's a chance that installing the service worker would fix the issue
-			Promise.race([
-				navigator.serviceWorker.getRegistration().then((registration) => {
-					if (registration != null) {
-						return Promise.reject(new Error('Service worker already exists.'));
-					}
-					return registration;
-				}).then(() => engine.installServiceWorker()),
-				// For some reason, `getRegistration()` can stall
-				new Promise((resolve) => {
-					setTimeout(() => resolve(), 2000);
-				}),
-			]).catch((err) => {
-				console.error('Error while registering service worker:', err);
-			}).then(() => {
-				window.location.reload();
-			});
+	let booted = false;
+
+	var boot = function(first_game_path = 'game/void.zip', first_game_filesize = 8388) {
+		if (booted) { console.log("don't boot me twice"); return; }
+		booted = true;
+		if (missing.length !== 0) {
+			if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
+				// There's a chance that installing the service worker would fix the issue
+				Promise.race([
+					navigator.serviceWorker.getRegistration().then((registration) => {
+						if (registration != null) {
+							return Promise.reject(new Error('Service worker already exists.'));
+						}
+						return registration;
+					}).then(() => engine.installServiceWorker()),
+					// For some reason, `getRegistration()` can stall
+					new Promise((resolve) => {
+						setTimeout(() => resolve(), 2000);
+					}),
+				]).catch((err) => {
+					console.error('Error while registering service worker:', err);
+				}).then(() => {
+					window.location.reload();
+				});
+			} else {
+				// Display the message as usual
+				const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
+				displayFailureNotice(missingMsg + missing.join('\n'));
+			}
+		} else if (try_start_game(first_game_path, first_game_filesize)) {
+			// good!
 		} else {
-			// Display the message as usual
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-			displayFailureNotice(missingMsg + missing.join('\n'));
+			console.log("FAILED STARTING MY FIRST GAME >:( big problem");
 		}
-	} else if (try_start_game('game/void.zip', 8388)) {
-		// good!
-	} else {
-		console.log("FAILED STARTING MY FIRST GAME >:( big problem");
 	}
 
 	var set_game_size = function(w,h) {
@@ -127,6 +133,7 @@ Cat = (function () {
 	}
 
 	return {
+		boot : boot,
 		try_start_game : try_start_game,
 		set_game_size : set_game_size,
 	}

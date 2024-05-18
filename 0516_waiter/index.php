@@ -115,7 +115,12 @@ body {
 		</div>
 
 		<script src="engine/godot.js"></script>
-		<script src="engine/cat.js" defer></script>
+		<script src="engine/cat.js?v=2" defer></script>
+		<script defer>
+			setTimeout(()=>{
+				Cat.boot('game/elvshf.zip',<?php echo filesize('game/elvshf.zip')?>);
+			},100);
+		</script>
 		<script>
 			const canvasEl = document.getElementById("canvas")
 			const canvasParent = canvasEl.parentElement;

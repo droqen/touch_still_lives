@@ -11,6 +11,10 @@ extends Node2D
 			maxi(1,game_size.x))
 		setting("display/window/size/viewport_height",
 			maxi(1,game_size.y))
+		setting("display/window/size/window_width_override",
+			maxi(1,game_size.x * view_scale.x))
+		setting("display/window/size/window_height_override",
+			maxi(1,game_size.y * view_scale.y))
 		setting("display/window/stretch/mode",
 			"viewport")
 		setting("display/window/stretch/aspect",
@@ -34,6 +38,7 @@ extends Node2D
 
 @export var game_name : String = "void"
 @export var game_size : Vector2i = Vector2i(180, 200)
+@export var view_scale : Vector2i = Vector2i(2, 2)
 @export var bg_colour : Color = Color("#d45455")
 @export var icon : Texture2D
 @export var pixelated : bool = true
