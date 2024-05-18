@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://uuvdbv6vd6wf"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_ii2cd"]
+[ext_resource type="Texture2D" uid="uid://bcx5e1lcddmnk" path="res://media/void10.png" id="2_35gb8"]
+[ext_resource type="FastNoiseLite" uid="uid://lhv1bdwiruvg" path="res://noise.tres" id="2_yhiuc"]
+[ext_resource type="Script" path="res://noise_scrambla.gd" id="3_gb2mp"]
+[ext_resource type="Texture2D" uid="uid://2qgr35ikbdxu" path="res://media/void.png" id="4_x6j87"]
+[ext_resource type="Script" path="res://stomper.gd" id="5_pxx2w"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_db5c0"]
+width = 180
+height = 200
+noise = ExtResource("2_yhiuc")
+
+[node name="main" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_ii2cd")
+game_name = "elevator shaft"
+bg_colour = Color(0.620532, 0.790415, 0.677016, 1)
+icon = ExtResource("2_35gb8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("NoiseTexture2D_db5c0")
+centered = false
+
+[node name="^noise_scrambla" type="Node" parent="Sprite2D"]
+script = ExtResource("3_gb2mp")
+
+[node name="stomper" type="Node2D" parent="."]
+position = Vector2(90, 100)
+script = ExtResource("5_pxx2w")
+
+[node name="Sprite2D" type="Sprite2D" parent="stomper"]
+texture = ExtResource("4_x6j87")
+hframes = 10
+vframes = 10
