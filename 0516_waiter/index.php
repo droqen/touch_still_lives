@@ -118,7 +118,7 @@ body {
 		<script src="engine/cat.js?v=2" defer></script>
 		<script defer>
 			setTimeout(()=>{
-				Cat.boot('game/ravine.zip',<?php echo filesize('game/ravine.zip')?>);
+				Cat.boot('game/golden_grape.zip',<?php echo filesize('game/golden_grape.zip')?>);
 			},100);
 		</script>
 		<script>
