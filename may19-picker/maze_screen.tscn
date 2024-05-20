@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://gng8bbthasjh"]
+
+[ext_resource type="Script" path="res://maze_screen.gd" id="1_e37g3"]
+[ext_resource type="Texture2D" uid="uid://dia1oh28u3gxh" path="res://media/redmaze.png" id="2_3uhms"]
+[ext_resource type="PackedScene" uid="uid://cmtnwrj1oi712" path="res://maze1.tscn" id="3_w8e2p"]
+[ext_resource type="Script" path="res://navdi4/maze/mazebake.gd" id="4_ormdu"]
+[ext_resource type="Script" path="res://player.gd" id="5_pdksp"]
+[ext_resource type="Script" path="res://navdi4/maze/mazeguide.gd" id="6_h61lr"]
+[ext_resource type="Script" path="res://navdi4/tap/TapPanel.gd" id="8_gh64x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hew87"]
+
+[node name="mazeScreen" type="Node2D"]
+script = ExtResource("1_e37g3")
+
+[node name="MazeBake" type="Node" parent="."]
+script = ExtResource("4_ormdu")
+path_to_maze_container = NodePath("../mazeContainer")
+
+[node name="mazeContainer" type="Node2D" parent="."]
+
+[node name="Maze" parent="mazeContainer" instance=ExtResource("3_w8e2p")]
+
+[node name="player" type="Node2D" parent="." node_paths=PackedStringArray("tap")]
+position = Vector2(95, 175)
+script = ExtResource("5_pdksp")
+tap = NodePath("../tap_panel")
+
+[node name="MazeGuide" type="Node" parent="player" node_paths=PackedStringArray("maze_bake")]
+script = ExtResource("6_h61lr")
+maze_bake = NodePath("../../MazeBake")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+texture = ExtResource("2_3uhms")
+hframes = 10
+vframes = 10
+frame = 3
+
+[node name="tap_panel" type="Panel" parent="."]
+offset_right = 180.0
+offset_bottom = 200.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hew87")
+script = ExtResource("8_gh64x")

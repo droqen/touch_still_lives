@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1y0ymm0dys2j"]
+
+[ext_resource type="Script" path="res://message_screen.gd" id="1_rkke0"]
+[ext_resource type="Theme" uid="uid://dch1a8mi47gtm" path="res://media/redmaze_theme.tres" id="2_a7d4l"]
+[ext_resource type="StyleBox" uid="uid://b2hhm4a3irwwx" path="res://media/panel1_box.tres" id="3_6toj5"]
+[ext_resource type="FontFile" uid="uid://csk5kuptmpwv3" path="res://navdi4/fonts/emptytowns.ttf" id="4_y2e5u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4s2do"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6kqob"]
+line_spacing = 1.0
+font = ExtResource("4_y2e5u")
+font_size = 6
+font_color = Color(0.580392, 0.215686, 0.133333, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_c33rp"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_h8k0v"]
+events = [SubResource("InputEventKey_c33rp")]
+
+[node name="messageScreen" type="Panel"]
+offset_right = 180.0
+offset_bottom = 200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4s2do")
+script = ExtResource("1_rkke0")
+
+[node name="messageZone" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 5.0
+offset_right = 175.0
+offset_bottom = 46.0
+theme = ExtResource("2_a7d4l")
+
+[node name="messagePanel" type="PanelContainer" parent="messageZone"]
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 30.0
+theme_override_styles/panel = ExtResource("3_6toj5")
+
+[node name="Label" type="Label" parent="messageZone/messagePanel"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 1
+text = "This is a long message, carry on"
+label_settings = SubResource("LabelSettings_6kqob")
+autowrap_mode = 2
+clip_text = true
+visible_characters_behavior = 1
+
+[node name="advanceButton" type="Button" parent="messageZone"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 25.0
+offset_right = 135.0
+offset_bottom = 41.0
+shortcut = SubResource("Shortcut_h8k0v")
+text = "..."

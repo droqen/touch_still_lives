@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://uuvdbv6vd6wf"]
+
+[ext_resource type="Script" path="res://navdi4/main/navdimain.gd" id="1_2ptb6"]
+[ext_resource type="Texture2D" uid="uid://0daf6w2e4nch" path="res://media/redmaze100.png" id="2_r6ceq"]
+[ext_resource type="Script" path="res://screen_manager.gd" id="3_ljfax"]
+[ext_resource type="PackedScene" uid="uid://gng8bbthasjh" path="res://maze_screen.tscn" id="4_30pkq"]
+[ext_resource type="PackedScene" uid="uid://b1y0ymm0dys2j" path="res://message_screen.tscn" id="5_70ada"]
+[ext_resource type="FontFile" uid="uid://csk5kuptmpwv3" path="res://navdi4/fonts/emptytowns.ttf" id="9_2c76v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5wuy2"]
+font = ExtResource("9_2c76v")
+font_size = 6
+font_color = Color(0.580392, 0.215686, 0.133333, 1)
+
+[node name="NavdiMain" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_2ptb6")
+game_name = "golden grape"
+view_scale = Vector2i(3, 3)
+icon = ExtResource("2_r6ceq")
+bg_colour = Color(0.756863, 0.968627, 0.815686, 1)
+time_year = 2024
+time_month = "May"
+time_day = 19
+
+[node name="screenManager" type="Node2D" parent="."]
+script = ExtResource("3_ljfax")
+
+[node name="endingScreen" type="Node2D" parent="screenManager"]
+
+[node name="ColorRect" type="ColorRect" parent="screenManager/endingScreen"]
+offset_right = 180.0
+offset_bottom = 200.0
+color = Color(0.917647, 0.968627, 0.756863, 1)
+
+[node name="Label" type="Label" parent="screenManager/endingScreen"]
+offset_right = 180.0
+offset_bottom = 200.0
+text = "the end of a
+very short tale.
+
+\"golden grape\" 
+by droqen"
+label_settings = SubResource("LabelSettings_5wuy2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mazeScreen" parent="screenManager" instance=ExtResource("4_30pkq")]
+
+[node name="messageScreen" parent="screenManager" instance=ExtResource("5_70ada")]
+visible = false
