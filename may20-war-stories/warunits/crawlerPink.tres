@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WarUnitStats" load_steps=2 format=3 uid="uid://blsmpr7yn2w26"]
+
+[ext_resource type="Script" path="res://warunits/WarUnitStats.gd" id="1_vmfre"]
+
+[resource]
+script = ExtResource("1_vmfre")
+team = 1
+first_frame = 43
+hp_max = 100
+attack_reload = 19
+attack_pwr = 9
+armour = 5
+move_reload = 5.0
+anim_period = 20

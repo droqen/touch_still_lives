@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfvb7t8ln7js7"]
+
+[ext_resource type="Script" path="res://warunits/WarUnit.gd" id="1_ehpay"]
+[ext_resource type="Resource" uid="uid://bysb20g4wckxq" path="res://warunits/infantryYellow.tres" id="2_bq1jp"]
+[ext_resource type="Texture2D" uid="uid://h63qr6ofgtrn" path="res://media/warstories.png" id="3_wlinr"]
+[ext_resource type="Script" path="res://navdi4/maze/mazeguide.gd" id="4_63f0c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k3mag"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qq4t0"]
+radius = 3.0
+
+[node name="u" type="CharacterBody2D"]
+position = Vector2(15, 155)
+script = ExtResource("1_ehpay")
+stats = ExtResource("2_bq1jp")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite"]
+texture = ExtResource("3_wlinr")
+hframes = 10
+vframes = 10
+frame = 20
+
+[node name="maxbar" type="Node2D" parent="Sprite"]
+position = Vector2(-5, -5)
+
+[node name="c" type="ColorRect" parent="Sprite/maxbar"]
+offset_right = 10.0
+offset_bottom = 2.0
+color = Color(0.141176, 0.243137, 0.172549, 1)
+
+[node name="c2" type="ColorRect" parent="Sprite/maxbar"]
+visible = false
+offset_top = -2.0
+offset_right = 10.0
+offset_bottom = 3.0
+color = Color(0, 0, 0, 1)
+
+[node name="hpbar" type="Node2D" parent="Sprite/maxbar"]
+
+[node name="c" type="ColorRect" parent="Sprite/maxbar/hpbar"]
+offset_right = 10.0
+offset_bottom = 1.0
+color = Color(0.835294, 0.666667, 0.34902, 1)
+
+[node name="MazeGuide" type="Node" parent="." node_paths=PackedStringArray("shapecast")]
+script = ExtResource("4_63f0c")
+shapecast = NodePath("../ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+shape = SubResource("CircleShape2D_k3mag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qq4t0")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WarUnitStats" load_steps=2 format=3 uid="uid://s47m8e7gfgwg"]
+
+[ext_resource type="Script" path="res://warunits/WarUnitStats.gd" id="1_d4ank"]
+
+[resource]
+script = ExtResource("1_d4ank")
+team = 1
+first_frame = 33
+hp_max = 30
+attack_reload = 30
+attack_pwr = 3
+armour = 2
+move_reload = 2.5
+anim_period = 9

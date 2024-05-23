@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WarUnitStats" load_steps=2 format=3 uid="uid://bysb20g4wckxq"]
+
+[ext_resource type="Script" path="res://warunits/WarUnitStats.gd" id="1_7k3dc"]
+
+[resource]
+script = ExtResource("1_7k3dc")
+team = 0
+first_frame = 30
+hp_max = 30
+attack_reload = 20
+attack_pwr = 3
+armour = 1
+move_reload = 2.2
+anim_period = 9
